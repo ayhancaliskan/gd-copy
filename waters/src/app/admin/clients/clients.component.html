@@ -1,0 +1,85 @@
+<div class="container-large">
+    <div class="d-flex">
+        <h2>Clients</h2>
+        <div class="action-buttons">
+            <button class="btn btn-success" (click)="openAddClientModal()"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>Entreprise</th>
+                <th>Adresse</th>
+                <th>Contact</th>
+                <th>Téléphone</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Chauffeur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let client of clients">
+                <td>{{ client.name }}</td>
+                <td>{{ client.address }}</td>
+                <td>{{ client.contact }}</td>
+                <td>{{ client.tel }}</td>
+                <td>{{ client.mail }}</td>
+                <td>{{ client.type }}</td>
+                <td>{{ client.defaultDriver }}</td>
+                <td>
+                    <i class="fa fa-pencil btn-edit-icon" (click)="openEditClientModal(client)"></i>
+                    <i class="fa fa-trash btn-delete-icon" (click)="deleteClient(client._id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal pour ajouter/modifier un client -->
+    <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content px-3 py-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientModalLabel">Ajouter/Modifier un client</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form #clientForm="ngForm" (ngSubmit)="saveClient()">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Entreprise</label>
+                            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedClient.name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Adresse</label>
+                            <input type="text" class="form-control" id="address" name="address" [(ngModel)]="selectedClient.address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact" class="form-label">Contact</label>
+                            <input type="text" class="form-control" id="contact" name="contact" [(ngModel)]="selectedClient.contact" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tel" class="form-label">Téléphone</label>
+                            <input type="text" class="form-control" id="tel" name="tel" [(ngModel)]="selectedClient.tel" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="mail" name="mail" [(ngModel)]="selectedClient.mail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Type</label>
+                            <select class="form-control" id="type" name="type" [(ngModel)]="selectedClient.type" required>
+                                <option value="grossiste">Grossiste</option>
+                                <option value="marchand">Marchand</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!clientForm.valid">Sauvegarder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

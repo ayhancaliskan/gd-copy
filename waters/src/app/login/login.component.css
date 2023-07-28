@@ -1,0 +1,59 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.login-container {
+    background-image: linear-gradient(120deg, #1a2a6c 0%, #8fd3f4 100%);
+}
+
+.card {
+    color: #f1f1f1;
+    width: 25%;
+    border-radius: 10px;
+}
+img {
+    padding: 15px;
+    width: 45%;
+    margin: auto;
+}
+
+.card-body {
+    margin-top: 20px;
+}
+.form-control {
+    border-radius: 5px !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #1a2a6c;
+}
+
+.btn-primary {
+    background-color: #3498DB;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+.btn-light:hover {
+    background-color: #3498DB;
+    color: #ffffff;
+}
+
+/* Pour les écrans de moins de 768px (typiquement les mobiles) */
+@media (max-width: 767px) {
+    .card {
+        margin: 20px 10px; 
+        width: 100%;
+    }
+
+    .login-container h2 {
+        font-size: 24px; 
+    }
+
+    .btn-light {
+        padding: 10px 20px; 
+    }
+}

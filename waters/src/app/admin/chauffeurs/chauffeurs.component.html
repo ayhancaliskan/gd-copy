@@ -1,0 +1,73 @@
+<div class="container-large">
+    <div class="d-flex">
+        <h2>Chauffeurs</h2>
+        <div class="action-buttons">
+            <button class="btn btn-success" (click)="openAddChauffeurModal()"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Actif</th>
+                <th>Clients assignés</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let chauffeur of chauffeurs">
+                <td>{{ chauffeur.name }}</td>
+                <td>{{ chauffeur.isActif ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <ul>
+                        <li *ngFor="let client of chauffeur.clients">{{ client.name }}</li>
+                    </ul>
+                </td>
+                <td>
+                    <i class="fa fa-pencil btn-edit-icon" (click)="openEditChauffeurModal(chauffeur)"></i>
+                    <i class="fa fa-trash btn-delete-icon" (click)="deleteChauffeur(chauffeur._id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal pour ajouter/modifier un chauffeur -->
+    <div class="modal fade" id="chauffeurModal" tabindex="-1" aria-labelledby="chauffeurModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content px-3 py-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chauffeurModalLabel">Ajouter/Modifier un chauffeur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form #chauffeurForm="ngForm" (ngSubmit)="saveChauffeur()">
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="selectedChauffeur.name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="isActif" class="form-label">Actif</label>
+                            <input type="checkbox" id="isActif" name="isActif" [(ngModel)]="selectedChauffeur.isActif">
+                        </div>
+                        <div class="mb-3">
+                            <label for="clients">Clients</label>
+                            <select multiple class="form-control" id="clients" [(ngModel)]="selectedClients" name="clients">
+                              <option *ngFor="let client of unassignedClients" [value]="client._id">{{ client.name }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="user" class="form-label">Utilisateur associé</label>
+                            <select class="form-control" id="user" name="user" [(ngModel)]="selectedChauffeur.user">
+                                <option *ngFor="let user of availableUsers" [value]="user._id">{{ user.username }}</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

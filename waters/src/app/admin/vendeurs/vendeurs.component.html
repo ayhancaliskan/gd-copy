@@ -1,0 +1,74 @@
+<div class="container-large">
+    <div class="d-flex">
+        <h2>Vendeurs</h2>
+        <div class="action-buttons">
+            <button class="btn btn-success" (click)="openAddVendeurModal()"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Téléphone</th>
+                <th>Adresse mail</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vendeur of vendeurs">
+                <td>{{ vendeur.name }}</td>
+                <td>{{ vendeur.surname }}</td>
+                <td>{{ vendeur.tel }}</td>
+                <td>{{ vendeur.mail }}</td>
+                <td>
+                    <i class="fa fa-pencil btn-edit-icon" (click)="openEditVendeurModal(vendeur)"></i>
+                    <i class="fa fa-trash btn-delete-icon" (click)="deleteVendeur(vendeur._id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal pour ajouter/modifier un vendeur -->
+    <div class="modal fade" id="vendeurModal" tabindex="-1" aria-labelledby="vendeurModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content px-3 py-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vendeurModalLabel">Ajouter/Modifier un vendeur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form #vendeurForm="ngForm" (ngSubmit)="saveVendeur()">
+                        <!-- Champs du formulaire -->
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="name" [(ngModel)]="selectedVendeur.name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="surname" [(ngModel)]="selectedVendeur.surname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telephone" class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="telephone" name="tel" [(ngModel)]="selectedVendeur.tel" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Adresse mail</label>
+                            <input type="email" class="form-control" id="email" name="mail" [(ngModel)]="selectedVendeur.mail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="user" class="form-label">Utilisateur associé</label>
+                            <select class="form-control" id="user" name="user" [(ngModel)]="selectedVendeur.user">
+                                <option *ngFor="let user of availableUsers" [value]="user._id">{{ user.username }}</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

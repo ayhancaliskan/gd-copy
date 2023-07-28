@@ -1,0 +1,159 @@
+body{
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container-large {
+    padding: 4rem 2rem;
+}
+@media (min-width: 1211px) {
+    .container-large {
+        padding: 2rem;
+    }
+}
+.container-large h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    margin-left: 1.5rem;
+}
+.action-buttons .btn-success {
+    border-radius: 50% !important;
+}
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary {
+    background-color: #3498DB;
+    color: #ffffff;
+
+}
+
+.btn-secondary {
+    background-color: #7f8c8d;
+    color: #ffffff;
+
+}
+
+.btn-success {
+    background-color: #2ecc71;
+    color: #ffffff;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Styles du tableau */
+.custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.custom-table thead tr {
+    background-color: transparent;
+}
+
+.custom-table th {
+    font-weight: 600;
+    color: #555;
+    border-bottom: 2px solid #ddd;
+}
+
+.custom-table tbody tr {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+.custom-table tbody tr:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.custom-table th, .custom-table td {
+    padding: 8px 5px;
+}
+
+/* Icônes d'action */
+.btn-edit-icon, .btn-delete-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.btn-edit-icon {
+    font-size: 1.5rem;
+    color: #3498DB;
+}
+
+.btn-edit-icon:hover {
+    color: #2e80c4;
+}
+
+.btn-delete-icon {
+    font-size: 1.5rem;
+    color: #e74c3c;
+    margin: 0 10px;
+}
+
+.btn-delete-icon:hover {
+    color: #c0392b;
+}
+
+/* Display product */
+.product-card {
+    flex: 0 0 calc(33.333% - 1rem); /* Trois cartes par ligne avec un peu d'espace entre elles */
+    margin-bottom: 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    overflow: hidden;
+}
+@media (max-width: 600px) {
+    .product-card {
+        flex: 0 0 calc(100% - 1rem) !important;
+    }
+}
+@media (max-width: 1210px) {
+    .product-card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain; /* Pour s'assurer que l'image couvre toute la zone sans être déformée */
+}
+
+.product-info {
+    padding: 1rem;
+}
+.product-info h4 {
+    font-weight: bolder;
+}
+.product-actions {
+    display: flex;
+    justify-content: end;
+}

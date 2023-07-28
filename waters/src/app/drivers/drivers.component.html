@@ -1,0 +1,12 @@
+<div class="container mt-4">
+    <div *ngFor="let order of orders" class="card commande-card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">{{ order.entreprise.nom }}</h3>
+            <p><strong>Alias:</strong> {{ order.entreprise.alias }}</p>
+            <p><strong>Adresse:</strong> <a [href]="'https://www.google.com/maps/dir/?api=1&destination=' + order.entreprise.adresse" target="_blank">{{ order.entreprise.adresse }}</a></p>
+            <p><strong>Statut:</strong> {{ order.statut }}</p>
+            <button class="btn btn-success" (click)="marquerCommeLivre(order._id)">Marquer comme livré</button>
+            <button class="btn btn-primary" (click)="afficherDetails(order._id)">Afficher les détails</button>
+        </div>
+    </div>
+</div>

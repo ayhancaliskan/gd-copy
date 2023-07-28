@@ -1,0 +1,70 @@
+<div class="container-large">
+    <div class="d-flex">
+        <h2>Produits</h2>
+        <div class="action-buttons">
+            <button class="btn btn-success" (click)="openAddProductModal()"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+
+    <div class="product-container">
+        <!-- Cartes de produits -->
+        <div class="product-card" *ngFor="let produit of produits">
+            <img src="{{ produit.image }}" alt="{{ produit.name }}" class="product-image">
+            <div class="product-info">
+                <h4>{{ produit.name }}</h4>
+                <p class="m-0">Prix Grossiste: {{ produit.wholesalePrice }}€</p>
+                <p class="m-0">Prix Marchand: {{ produit.retailerPrice }}€</p>
+                <p class="m-0">Prix Autre: {{ produit.otherPrice }}€</p>
+                <div class="product-actions">
+                    <button class="btn btn-edit" (click)="openEditProductModal(produit)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-delete" (click)="deleteProduct(produit._id)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal pour ajouter/modifier un produit -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content px-3 py-2">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Ajouter/Modifier un produit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #productForm="ngForm" (ngSubmit)="saveProduct()">
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Nom du produit</label>
+                        <input type="text" class="form-control" id="productName" name="productName" [(ngModel)]="selectedProduct.name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productImage" class="form-label">Image du produit (URL)</label>
+                        <input type="text" class="form-control" id="productImage" name="productImage" [(ngModel)]="selectedProduct.image" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Prix Grossiste</label>
+                        <input type="number" class="form-control" id="productPrice" name="productPrice" [(ngModel)]="selectedProduct.wholesalePrice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Prix Marchand</label>
+                        <input type="number" class="form-control" id="productPrice" name="productPrice" [(ngModel)]="selectedProduct.retailerPrice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Prix Autre</label>
+                        <input type="number" class="form-control" id="productPrice" name="productPrice" [(ngModel)]="selectedProduct.otherPrice" required>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

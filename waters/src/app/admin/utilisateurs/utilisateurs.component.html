@@ -1,0 +1,63 @@
+<div class="container-large">
+    <div class="d-flex">
+        <h2>Utilisateurs</h2>
+        <div class="action-buttons">
+            <button class="btn btn-success" (click)="openAddUtilisateurModal()"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Mot de passe</th>
+                <th>Rôle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let utilisateur of utilisateurs">
+                <td>{{ utilisateur.username }}</td>
+                <td>{{ utilisateur.password }}</td>
+                <td>{{ utilisateur.userRole || 'pas de rôle' }}</td>
+                <td>
+                    <i class="fa fa-pencil btn-edit-icon" (click)="openEditUtilisateurModal(utilisateur)"></i>
+                    <i class="fa fa-trash btn-delete-icon" (click)="deleteUtilisateur(utilisateur._id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- Modal pour ajouter/modifier un utilisateur -->
+    <div class="modal fade" id="utilisateurModal" tabindex="-1" aria-labelledby="utilisateurModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content px-3 py-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="utilisateurModalLabel">Ajouter/Modifier un utilisateur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form #utilisateurForm="ngForm" (ngSubmit)="saveUtilisateur()">
+                        <!-- Champs du formulaire -->
+                        <div class="mb-3">
+                            <label for="identifiant" class="form-label">Identifiant</label>
+                            <input type="text" class="form-control" id="identifiant" name="username" [(ngModel)]="selectedUtilisateur.username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="motDePasse" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="motDePasse" name="password" [(ngModel)]="selectedUtilisateur.password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="isAdmin" class="form-label">isAdmin</label>
+                            <input type="checkbox" id="isAdmin" name="isAdmin" [(ngModel)]="selectedUtilisateur.isAdmin">
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

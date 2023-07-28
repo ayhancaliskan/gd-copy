@@ -1,0 +1,109 @@
+<div class="wrapper vh-100">
+    <div class="container py-5">
+        <div class="row">
+            <div *ngFor="let produit of produits; let i = index" class="col-12 col-md-6 col-lg-4">
+                <div class="product-card">
+                    <img src="{{ produit.image }}" alt="{{ produit.name }}" class="product-image">
+                    <div class="product-info">
+                        <h4 class="card-title text-center mb-3">{{ produit.name }}</h4>
+                        <!-- <p class="m-0 text-center">{{ produit.wholesalePrice }} €</p> -->
+
+                        <div class="product-actions mt-3">
+                            <input type="number" class="form-control me-4" #quantiteInput placeholder="Quantité" value="">
+                            <button class="btn btn-success" type="button" (click)="ajouterAuPanier(produit, quantiteInput.valueAsNumber, i)">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback d-block" *ngIf="quantiteErrors[i]">Veuillez entrer une quantité.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icône du panier -->
+    <div class="cart-icon-filled d-flex justify-content-center align-items-center" (click)="ouvrirPanierModal()">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-count" *ngIf="nombreProduits > 0">{{ nombreProduits }}</span>
+    </div>
+
+    <!-- Modal Panier -->
+    <div class="modal fade" id="panierModal" tabindex="-1" aria-labelledby="panierModalLabel" aria-hidden="true" #panierModalRef>
+        <div class="modal-dialog">
+            <div class="modal-content px-3 py-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="panierModalLabel">Panier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div *ngIf="cart.length === 0; else Empty" class="modal-body">
+                    <p>Votre panier est vide.</p>
+                </div>
+                <ng-template #Empty>
+
+                    <div class="modal-body">
+                        <div *ngFor="let item of cart">
+                            <p>{{ item.product.name }} - Quantité : {{ item.quantity }}</p>
+                        </div>
+
+                        <!-- Sélectionner un client existant -->
+                        <label for="clientSelect">Sélectionnez un client:</label>
+                        <select class="form-control" id="clientSelect" [disabled]="showNewClientForm" [(ngModel)]="selectedClient" (ngModelChange)="onClientSelectionChange()">
+                            <option *ngFor="let client of clients" [value]="client._id">{{ client.name }}</option>
+                        </select>
+                        
+                        <!-- Formulaire pour ajouter un nouveau client -->
+                        <button class="btn btn-primary float-end my-3" (click)="toggleNewClientForm()">Ajouter un client manuellement</button>
+                        <div class="card d-inline-block w-100 mt-3" *ngIf="showNewClientForm">
+                            <h5>Nouveau client</h5>
+                            <hr class="pb-1"/>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nom - Prénom</label>
+                                <input type="text" class="form-control" id="name" [(ngModel)]="clientInfo.name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Adresse</label>
+                                <input type="text" class="form-control" id="adress" [(ngModel)]="clientInfo.address">
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact" class="form-label">Contact</label>
+                                <input type="text" class="form-control" id="contact" [(ngModel)]="clientInfo.contact">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tel" class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="tel" [(ngModel)]="clientInfo.tel">
+                            </div>
+                            <div class="mb-3">
+                                <label for="mail" class="form-label">E-mail</label>
+                                <input type="tel" class="form-control" id="mail" [(ngModel)]="clientInfo.mail">
+                            </div>
+                            <div class="mb-3">
+                                <label for="type" class="form-label">Type</label>
+                                <select class="form-control" id="type" name="type" [(ngModel)]="clientInfo.type">
+                                    <option value="grossiste">Grossiste</option>
+                                    <option value="marchand">Marchand</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-secondary " (click)="toggleNewClientForm()">Annuler</button>
+                            <button class="btn btn-primary float-end" (click)="addNewClient(clientInfo)">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="showTotalPrice" class="total-price">
+                        <p class="text-end" *ngIf="cart.length > 0">Prix total : {{ prixTotal }}€</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button *ngIf="showTotalPrice" type="button" class="btn btn-primary" (click)="validerCommande()">Valider la commande</button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

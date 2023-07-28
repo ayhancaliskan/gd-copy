@@ -1,0 +1,26 @@
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alignement des cartes à gauche */
+    padding: 2rem;
+    gap: 1rem; /* Espacement entre les cartes */
+}
+
+.product-card:hover {
+    transform: translateY(-10px); /* Effet de levitation lors du survol */
+}
+
+.btn-edit {
+    background-color: #3498DB;
+    color: #ffffff;
+    margin: 0 5px;
+    font-size: 1.2rem;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: #ffffff;
+    margin: 0 5px;
+    font-size: 1.2rem;
+}
+
